@@ -1,0 +1,38 @@
+First Position : 
+Distance between front wheel to back axis : r: 1m 
+
+
+
+First x, y =0 Theta = 0;  
+del_Theta=(angular velocity) * time
+
+First need to calculate Rc.
+	Rc = length(1 M) /Math.tan(steering angle)
+
+Find Xc;
+	Xc= X-Rc*Math.sin(Theta)
+Find Yc ; 
+	Yc = Y+Rc*Math.cos(Theta)
+	
+
+	
+New values : 
+X = Xc+Rc*Math.sin(Theta+del_Theta)
+Y = Yc-Rc*Math.cos(Theta+del_Theta)
+
+****Theta=Theta+del_Theta
+
+
+
+
+Exception : 
+
+Calculating Del_D (distance_travel)= (2*Math.pi*r (radius of the F wheel) * count(encoder)) 
+							/count per rev(ticks_per_rev :35136)
+
+when steering angle=0;
+X' = X+Del_D*Math.sin(Theta)
+Y' = Y+Del_D*Math.cos(Theta)
+Theta = Theta
+
+
