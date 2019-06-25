@@ -3,51 +3,62 @@ package com.test.springboot.javaBasic.javaBasic;
 class PrintDemo {
 	public void printCount() {
 		try {
-			for (int i=0;i<5;i++)
-				System.out.println("Counter -----");
-			
-		}catch(Exception e) {
-			System.out.println("The thread interrupted.");
+			for (int i = 5; i > 0; i--) {
+				System.out.println("Counter   ---   " + i);
+			}
+		} catch (Exception e) {
+			System.out.println("Thread  interrupted.");
 		}
 	}
 }
 
-class ThreadDemo extends Thread{
+class ThreadDemo extends Thread {
 	private Thread t;
 	private String threadName;
-	PrintDemo pd;
-	
-	public ThreadDemo(String name,PrintDemo pd) {
-		// TODO Auto-generated constructor stub
-		this.threadName=name;
-		this.pd=pd;
+	PrintDemo PD;
+
+	ThreadDemo(String name, PrintDemo pd) {
+		threadName = name;
+		PD = pd;
 	}
+
 	public void run() {
-		pd.printCount();
-		System.out.println("Thread :"+threadName);
+
+//		synchronized (PD) {
+//			PD.printCount();
+//		}
+		
+		PD.printCount();
+
+		System.out.println("Thread " + threadName + " exiting.");
 	}
+
 	public void start() {
-		System.out.println("Starting :"+threadName);
-		if (t==null) {
-			t=new Thread(this.t, threadName);
+		System.out.println("Starting " + threadName);
+		if (t == null) {
+			t = new Thread(this, threadName);
 			t.start();
 		}
 	}
 }
 
-public class ThreadSync{
-	public static void main(String[] args) {
-		PrintDemo pd = new PrintDemo();
-		ThreadDemo T1 = new ThreadDemo("Thread -1", pd);
-		ThreadDemo T2= new ThreadDemo("Thread - 2", pd);
+public class ThreadSync {
+	public static void main(String args[]) {
+
+		PrintDemo PD = new PrintDemo();
+
+		ThreadDemo T1 = new ThreadDemo("Thread - 1 ", PD);
+		ThreadDemo T2 = new ThreadDemo("Thread - 2 ", PD);
+
 		T1.start();
 		T2.start();
-		
+
+		// wait for threads to end
 		try {
 			T1.join();
 			T2.join();
-		}catch(Exception e) {
-			System.out.println("Interrupted.."+e);
+		} catch (Exception e) {
+			System.out.println("Interrupted");
 		}
 	}
-} 
+}
