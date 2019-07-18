@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class FindSingleNumber {
 	public static void main(String[] args) {
-	
 
 	}
 
